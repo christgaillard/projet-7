@@ -32,13 +32,9 @@ def tweet():
         'valeurs' : [24, 24, 25, 26, 27, 28],
         'unite' : "degrés Celcius"
     }
-    if text:
-        print('Request for hello page received with name=%s' % text)
-        return jsonify(dictionnaire)
-        #return render_template('hello.html', tweet=text)
-    else :
-        print('Request for hello page received with no name or blank name -- redirecting')
-        return redirect(url_for('index'))
+    return jsonify(dictionnaire)
+
+
 
 if __name__ == '__main__':
    app.run()
