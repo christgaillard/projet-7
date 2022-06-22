@@ -26,9 +26,9 @@ def hello():
 
 @app.route('/tweet', methods=['POST'])
 def tweet():
-    text = request.get_json()
+    text = request.form.get('body')
     dictionnaire = {
-        'tweet' :
+        'tweet' : text,
         'valeurs' : [24, 24, 25, 26, 27, 28],
         'unite' : "degrés Celcius"
     }
