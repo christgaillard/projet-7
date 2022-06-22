@@ -26,7 +26,7 @@ def hello():
 
 @app.route('/tweet', methods=['POST'])
 def tweet():
-    text = request.json
+    text = request.get_json()
 
     return jsonify(text)
 
