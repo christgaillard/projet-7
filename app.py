@@ -26,13 +26,9 @@ def hello():
 
 @app.route('/tweet', methods=['POST'])
 def tweet():
-    text = request.form.get('body')
-    dictionnaire = {
-        'tweet' : text,
-        'valeurs' : [24, 24, 25, 26, 27, 28],
-        'unite' : "degrés Celcius"
-    }
-    return jsonify(dictionnaire)
+    text = request.json
+
+    return jsonify(text)
 
 
 
