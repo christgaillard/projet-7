@@ -1,3 +1,5 @@
+import os
+import app.functions
 from datetime import datetime
 from flask import Flask, render_template, request, redirect, url_for, send_from_directory,jsonify
 app = Flask(__name__)
@@ -27,8 +29,9 @@ def hello():
 @app.route('/tweet', methods=['POST'])
 def tweet():
     text = request.get_json()
-
-    return jsonify(text)
+    clean_tweet = app.tweet_transform(text['body'])
+    text_lematized = app.text_lematized(app.remove_stopwords(app.tokenize_words(clean_tweet.lower())))
+    return jsonify(text_lematized)
 
 
 

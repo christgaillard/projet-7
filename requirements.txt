@@ -1,1 +1,5 @@
 Flask==2.0.2
+nltk==3.7
+gensim==4.2.0
+sklearn
+tensorflow==2.9.1
