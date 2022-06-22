@@ -24,15 +24,15 @@ def hello():
        print('Request for hello page received with no name or blank name -- redirecting')
        return redirect(url_for('index'))
 
-@app.route('/api/tweet/', methods=['POST'])
-def traitement():
-    text = request.form.get('tweet')
+@app.route('/tweet', methods=['POST'])
+def tweet():
+    text = request.form.get('body')
     dictionnaire = {
         'tweet' : text,
         'valeurs' : [24, 24, 25, 26, 27, 28],
         'unite' : "degrés Celcius"
     }
-    if text :
+    if text:
         print('Request for hello page received with name=%s' % text)
         return jsonify(dictionnaire)
         #return render_template('hello.html', tweet=text)
