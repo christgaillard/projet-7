@@ -26,7 +26,7 @@ def hello():
 
 @app.route('/tweet', methods=['POST'])
 def tweet():
-    text = request.form.get('body')
+    text = request.form.get('text')
     dictionnaire = {
         'tweet' : text,
         'valeurs' : [24, 24, 25, 26, 27, 28],
