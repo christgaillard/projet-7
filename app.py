@@ -1,7 +1,12 @@
 import os
-import app.functions
-from datetime import datetime
+import pickle
+from keras.utils import pad_sequences
+from keras_preprocessing.text import Tokenizer
+
+import webapp.functions as wp
 from flask import Flask, render_template, request, redirect, url_for, send_from_directory,jsonify
+
+
 app = Flask(__name__)
 
 
@@ -27,11 +32,14 @@ def hello():
        return redirect(url_for('index'))
 
 @app.route('/tweet', methods=['POST'])
+
 def tweet():
-    text = request.get_json()
-    clean_tweet = app.tweet_transform(text['body'])
-    text_lematized = app.text_lematized(app.remove_stopwords(app.tokenize_words(clean_tweet.lower())))
-    return jsonify(text_lematized)
+    request_data = request.get_json()
+    text = request_data[0]['body']
+    request_data[0]['body']= wp.stemming(wp.remove_stopwords(wp.tokenize_words(wp.tweet_transform(text))))
+    return jsonify(request_data)
+
+
 
 
 
