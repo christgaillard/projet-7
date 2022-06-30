@@ -32,43 +32,16 @@ def remove_stopwords(texts):
     return text
 
 
-def stemming(tokenized_text):
-    text = [ps.stem(word) for word in tokenized_text]
-    trans_sentence = ' '.join(text)
+def stemming(texts):
+    text = [ps.stem(word) for word in texts]
+    trans_sentence = text
+
     return trans_sentence
 
+def pipe_text(texts):
+    texts = tweet_transform(texts)
+    texts = tokenize_words(texts)
+    texts = remove_stopwords(texts)
+    texts = stemming(texts)
+    return texts
 
-def preprocess_text_fct(tweets_raw) :
-    print(tweets_raw.values[0:10])
-    print(tweets_raw.shape)
-    tweet_train, tweet_test, y_train, y_test = train_test_split(tweets_raw.values, y,
-                                                                test_size=0.2, stratify=y,
-                                                                random_state=7)
-    return tweet_train, tweet_test, y_train, y_test
-
-def build_model_fct() :
-    print("Build Keras model ...")
-
-    dropout_level = 0.2
-
-    k_model = Sequential()
-    k_model.add(Embedding(vocab_size,
-                        w2v_size,
-                        weights=[embedding_matrix],
-                        input_length=k_max_sequence_len,
-                        trainable=True))
-
-    k_model.add(Bidirectional(LSTM(128, dropout=0.5, recurrent_dropout=0.2, return_sequences=True)))
-#    k_model.add(TimeDistributed(Dense(256, activation='relu')))
-#    k_model.add(Flatten())
-    k_model.add(GlobalAveragePooling1D())
-    k_model.add(Dense(32, activation='relu'))
-    k_model.add(Dropout(dropout_level))
-    k_model.add(Dense(1, activation='sigmoid'))
-
-    k_model.compile(loss='binary_crossentropy',
-                                optimizer='adam',
-                                metrics=['accuracy'])
-
-
-    return k_model
