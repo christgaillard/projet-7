@@ -1,8 +1,5 @@
 import re
 import nltk
-from keras.layers import Bidirectional
-from tensorflow.python.keras import Sequential
-from tensorflow.python.keras.layers import Embedding, LSTM, GlobalAveragePooling1D, Dense, Dropout
 
 nltk.download('punkt')
 nltk.download('stopwords')

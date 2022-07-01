@@ -47,8 +47,6 @@ def tweet():
     text = request_data[0]['body']
     rs_text = wp.pipe_text(text)
     print(rs_text)
-    #prep_text = [gensim.utils.simple_preprocess(text) for text in rs_text]
-
     k_sequence_len = 41
     x_val = pad_sequences(tokenizer.texts_to_sequences([rs_text]),
                                                         maxlen= k_sequence_len,
