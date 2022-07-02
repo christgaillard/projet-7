@@ -1,11 +1,8 @@
 import os
 import pickle
-
-import gensim
 import numpy as np
 from keras.saving.save import load_model
 from keras.utils import pad_sequences
-from keras_preprocessing.text import Tokenizer
 
 import webapp.functions as wp
 from flask import Flask, render_template, request, redirect, url_for, send_from_directory,jsonify
@@ -24,16 +21,7 @@ def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'),
                                'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
-@app.route('/hello', methods=['POST'])
-def hello():
-   tweet = request.form.get('tweet')
 
-   if tweet:
-       print('Request for hello page received with name=%s' % tweet)
-       return render_template('hello.html', tweet = tweet)
-   else:
-       print('Request for hello page received with no name or blank name -- redirecting')
-       return redirect(url_for('index'))
 
 @app.route('/tweet', methods=['POST'])
 
@@ -54,7 +42,6 @@ def tweet():
 
     y_pred_proba = model.predict(x_val)
     y_pred = np.where(y_pred_proba > 0.5, 1, 0)
-    #print(y_pred[0][0])
     if y_pred[0][0] == 1 :
         sent = "Ce tweet est positif"
     else:
@@ -62,7 +49,6 @@ def tweet():
 
     mondict['pred'] = sent
     mondict['proba'] =  str(y_pred_proba[0][0])
-    print(mondict)
     response_data.append(mondict)
     print(response_data)
     return jsonify(response_data)
