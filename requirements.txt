@@ -4,3 +4,4 @@ gensim==4.2.0
 sklearn
 pandas==1.4.3
 keras
+tensorflow
